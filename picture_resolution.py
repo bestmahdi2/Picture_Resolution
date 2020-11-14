@@ -1,11 +1,14 @@
 from PIL import Image
 from os import listdir, mkdir, getcwd, sep, path
 from shutil import move
-from progressbar import ProgressBar, Percentage, Bar, ETA, FileTransferSpeed
 from sys import stdout
+import operator
 
-def picture_resolution_finder():
+def picture_resolution_finder(resolution=[]):
     print("===Resolution Finder===\n")
+
+    ops = {"==": operator.eq, "<=": operator.le, ">=": operator.ge, "<": operator.lt, ">": operator.gt}
+
     errors = []
     pwd = getcwd() + sep
     source = pwd + "seprate" + sep
@@ -25,7 +28,7 @@ def picture_resolution_finder():
             width, height = image.size
             image.close()
 
-            if width < 100 or height < 100:
+            if ops[resolution[2]](width, resolution[0]) or ops[resolution[2]](height, resolution[0]):
                 move(file, source + file)
                 file_found += 1
 
@@ -39,5 +42,5 @@ def picture_resolution_finder():
     for i in errors:
         print(i)
 
-picture_resolution_finder()
+picture_resolution_finder(resolution=[100, 100, "<="])
 input()
