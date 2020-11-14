@@ -4,17 +4,21 @@ from shutil import move
 from sys import stdout
 import operator
 
-def picture_resolution_finder(resolution=[]):
+
+def picture_resolution_finder(resolution, seprater):
     print("===Resolution Finder===\n")
+    print("=====")
+    print("Check for : {0}*{1} \"{2}\"".format(resolution[0], resolution[1], resolution[2]))
+    print("=====")
 
     ops = {"==": operator.eq, "<=": operator.le, ">=": operator.ge, "<": operator.lt, ">": operator.gt}
 
     errors = []
     pwd = getcwd() + sep
-    source = pwd + "seprate" + sep
+    source = pwd + seprater + sep
 
-    if "seprate" not in listdir("."):
-        mkdir("seprate")
+    if seprater not in listdir("."):
+        mkdir(seprater)
 
     print("First Checking:")
     files = [i for i in listdir(".") if i != "picture_resolution.py" and path.isfile(i)]
@@ -42,5 +46,7 @@ def picture_resolution_finder(resolution=[]):
     for i in errors:
         print(i)
 
-picture_resolution_finder(resolution=[100, 100, "<="])
-input()
+
+# width height operator seprater
+picture_resolution_finder(resolution=[1920, 1080, ">="], seprater="seprator 1080")
+input("\nFinished. [Enter] to exit... ")
